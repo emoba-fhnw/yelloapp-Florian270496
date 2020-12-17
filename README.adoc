@@ -1,0 +1,78 @@
+== Emoba Assignment 3 - YelloApp
+
+=== Bearbeitet von
+
+* Vorname Nachname
+
+
+=== Herausstellungsmerkmal meiner App
+
+* ...
+
+
+=== Abgabe
+
+* Klasse 5iCa: Montag, 11.1.2021, 8:00 Uhr
+* Klasse 5iCb: Mittwoch, 13.1.2021, 12:00 Uhr
+
+Die Abgabe erfolgt durch ein "Push" auf den Master-Branch Ihres GitHub-Repositories.
+
+
+=== Die Aufgabe: Fernsteuerungs-App für die Tello-Drohne
+
+Entwerfen und implementieren Sie eine Fernsteuerungs-Applikation als native Android App mit Kotlin und Jetpack Compose.
+
+Die im Unterricht gezeigte App 'YelloApp' ist nur eine mögliche Umsetzung des gewünschten Funktionsumfangs.
+
+Anforderungen:
+
+* Legen Sie das wichtigste Herausstellungsmerkmal Ihrer App fest und beschreiben Sie es im obigen Abschnitt
+** Beispiele: Steuerung via Lagesensor, Einsatz von Spracherkennung, Hinderniserkennung, besonders einfache Bedienbarkeit, etc.
+* Gewünschte Funktionalität
+** Kommandos für Connect, Start, Land, Emergency.
+** Anzeige der Batteriezustands und zwei weiteren für das Fliegen der Drohne massgeblichen Informationen
+** Fliegen der Drohne via sogenannte RC-Kommandos
+** Umsetzung mindestens eines Canvas-basiertes Anzeigeelements und eines Canvas-basiertes interaktiven Controls
+* Das UI ist komplett mit Jetpack Compose zu implementieren.
+** https://developer.android.com/jetpack/compose
+* Implementierungssprache für die gesamte Applikation ist Kotlin.
+* Die im Unterricht erarbeitete Grundstruktur einer Android-App ist anzuwenden.
+
+
+=== Bewertung
+
+Es können in diesem Assignment maximal 4 Punkte erreicht werden. Der Fokus liegt dabei, neben Umsetzung der gewünschten Funktionalität, auf der Code-Qualität. Der Coolness-Faktor des UI wird über den Coolest App Award berücksichtigt.
+
+* 4 Punkte
+** Umsetzung der gesamten gewünschten Funktionalität und der oben genannten Grundanforderungen
+** App stimmt mit dem genannten Herausstellungsmerkmal überein
+** Strukturierung der App in 3 Layer
+** UI Code ist klar strukturiert
+** Video eines Flugs mit einer echten Tello-Drohne (Drohnen können ausgeliehen werden)
+* 1 Punkt
+** Die Drohne kann mittels RC-Commands geflogen werden und mindestens ein Canvas-basiertes Anzeigeelement kommt zum Einsatz
+* 0 Punkte
+** falls die Kriterien für einen Punkt nicht erfüllt sind ;-)
+** falls kein Canvas-basiertes UI-Element vorhanden ist
+** falls das Projekt nicht kompilierfähig ist
+** falls die App abstürzt bevor der erste Screen angezeigt wird
+** falls ihr Name nicht unter 'bearbeitet von' eingetragen ist
+** für Plagiate
+
+
+=== Besonderheiten
+
+Für dieses Assignment ist ein physisches Android-Device notwendig. Nur mit dem Emulator ist die Aufgabe praktisch nicht lösbar.
+
+Deshalb gibt es Alternativen
+
+* Sie können die YelloApp in einem 2-er Team bearbeiten
+** dann muss aber auch mindestens ein Android-Smartphone vorhanden sein
+** beide Namen müssen unter "Bearbeitet von" eingetragen sein
+* Sie können eine App für WetterOnline implementieren
+** Der notwendige Zugangs-Code wird zur Verfügung gestellt
+* Sie können eine App Ihrer Wahl implementieren
+
+Bei allen Alternativen gelten die analogen Anforderungen wie bei der YelloApp, insbesondere den Einsatz von Canvas.
+
+Bei WetterOnline und bei einer App Ihrer Wahl müssen Sie Rücksprache halten bis spätestens 23.12.2020. Ohne das OK von Dieter Holz wird die Arbeit nicht akzeptiert.

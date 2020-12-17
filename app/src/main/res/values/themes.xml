@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. Styling is done inside compose code, not here-->
+    <style name="EmobaTheme" parent="Theme.AppCompat.Light.DarkActionBar"/>
+
+    <style name="EmobaTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>

@@ -16,41 +16,63 @@ class YelloAppModel(private val tello: TelloConnector) {
     val available
         get() = connected && readyForNextCommand
 
-
     var height by mutableStateOf(0.0f)
+
+    var battery by mutableStateOf(0.0f)
+
+    var wifiStrength by mutableStateOf(0.0f)
+
+    var speed by mutableStateOf(0.0f)
+
+    var leftRight by mutableStateOf(0)
+        private set
 
     var forwardBackward by mutableStateOf(0)
         private set
+
+    var upwardDownward by mutableStateOf(0)
+        private set
+
+    var rotateLeftRight by mutableStateOf(0)
+        private set
+
+
 
     fun updateForwardBackward(value: Int) {
         if (value == forwardBackward || !connected) {
             return
         }
         forwardBackward = value
-        rc(leftRight, forwardBackward, upwardDownward, 0)
+        rc(leftRight, forwardBackward, upwardDownward, rotateLeftRight)
     }
 
-    var leftRight by mutableStateOf(0)
-        private set
 
     fun updateLeftRight(value: Int) {
         if (value == leftRight  || !connected) {
             return
         }
         leftRight = value
-        rc(leftRight, forwardBackward, upwardDownward, 0)
+        rc(leftRight, forwardBackward, upwardDownward, rotateLeftRight)
     }
 
-    var upwardDownward by mutableStateOf(0)
-        private set
 
     fun updateUpwardDownward(value: Int) {
         if (value == upwardDownward || !connected) {
             return
         }
         upwardDownward = value
-        rc(leftRight, forwardBackward, upwardDownward, 0)
+        rc(leftRight, forwardBackward, upwardDownward, rotateLeftRight)
     }
+
+
+    fun updateRotateLeftRight(value: Int) {
+        if (value == rotateLeftRight  || !connected) {
+            return
+        }
+        rotateLeftRight = value
+        rc(leftRight, forwardBackward, upwardDownward, rotateLeftRight)
+    }
+
 
     fun connect() {
         modelScope.launch {
@@ -70,7 +92,7 @@ class YelloAppModel(private val tello: TelloConnector) {
 
     private var rcJob: Job? = null
 
-    fun rc(leftRight: Int, forwardBack: Int, upDown: Int, yaw: Int) {
+    fun rc(leftRight: Int, forwardBack: Int, upDown: Int, rotateLeftRight: Int) {
         rcJob?.apply {
             if(isActive){
                 cancel()
@@ -79,7 +101,7 @@ class YelloAppModel(private val tello: TelloConnector) {
         rcJob = modelScope.launch {
             delay(50L)  // nur alle 50 ms ein neues rc Command an Tello schicken
             if(isActive){
-                tello.rc(leftRight, forwardBack, upDown, yaw)
+                tello.rc(leftRight, forwardBack, upDown, rotateLeftRight)
             }
         }
     }
@@ -88,6 +110,7 @@ class YelloAppModel(private val tello: TelloConnector) {
         leftRight       = 0
         forwardBackward = 0
         upwardDownward = 0
+        rotateLeftRight = 0
         //rc(0,0,0,0)
         rcJob?.apply {
             if(isActive){
@@ -103,8 +126,8 @@ class YelloAppModel(private val tello: TelloConnector) {
 
     fun takeoff() = onTello { takeoff(defaultOnFinished) }
     fun land()    = onTello { land(defaultOnFinished) }
-    fun forward() = onTello { forward(50, defaultOnFinished) }
     fun flip(dir: Char) = onTello { flip(dir, defaultOnFinished) }
+    fun emergency() = onTello { emergency(defaultOnFinished) }
 
     private val defaultOnFinished: (response: String) -> Unit = { readyForNextCommand = true }
 

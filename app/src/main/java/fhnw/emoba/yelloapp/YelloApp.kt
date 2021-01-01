@@ -13,7 +13,7 @@ object YelloApp : EmobaApp {
     lateinit var model: YelloAppModel
 
     override fun initialize(activity: AppCompatActivity, savedInstanceState: Bundle?) {
-        val connector = TelloConnector(ip          = "192.168.0.18",
+        val connector = TelloConnector(ip          = "192.168.1.6",
             commandPort = 8879,
             statePort   = 8890)
         model = YelloAppModel(connector)

@@ -35,6 +35,7 @@ class TelloConnector(private val ip: String,
 
     fun takeoff(onFinished: (response: String) -> Unit)         = onFinished.invoke(sendCommandAndWait("takeoff"))
     fun land(onFinished: (response: String) -> Unit)            = onFinished.invoke(sendCommandAndWait("land"))
+    fun emergency(onFinished: (response: String) -> Unit)       = onFinished.invoke(sendCommandAndWait("emergency"))
     fun forward(y: Int, onFinished: (response: String) -> Unit) = onFinished.invoke(sendCommandAndWait("forward $y"))
     fun flip(dir: Char, onFinished: (response: String) -> Unit) = onFinished.invoke(sendCommandAndWait("flip $dir"))
 

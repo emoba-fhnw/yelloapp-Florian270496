@@ -27,7 +27,7 @@ class YelloAppModel(private val tello: TelloConnector) {
             return
         }
         forwardBackward = value
-        rc(leftRight, forwardBackward, 0, 0)
+        rc(leftRight, forwardBackward, upwardDownward, 0)
     }
 
     var leftRight by mutableStateOf(0)
@@ -38,7 +38,18 @@ class YelloAppModel(private val tello: TelloConnector) {
             return
         }
         leftRight = value
-        rc(leftRight, forwardBackward, 0, 0)
+        rc(leftRight, forwardBackward, upwardDownward, 0)
+    }
+
+    var upwardDownward by mutableStateOf(0)
+        private set
+
+    fun updateUpwardDownward(value: Int) {
+        if (value == upwardDownward || !connected) {
+            return
+        }
+        upwardDownward = value
+        rc(leftRight, forwardBackward, upwardDownward, 0)
     }
 
     fun connect() {
@@ -76,6 +87,7 @@ class YelloAppModel(private val tello: TelloConnector) {
     fun stop() {
         leftRight       = 0
         forwardBackward = 0
+        upwardDownward = 0
         //rc(0,0,0,0)
         rcJob?.apply {
             if(isActive){
@@ -92,6 +104,7 @@ class YelloAppModel(private val tello: TelloConnector) {
     fun takeoff() = onTello { takeoff(defaultOnFinished) }
     fun land()    = onTello { land(defaultOnFinished) }
     fun forward() = onTello { forward(50, defaultOnFinished) }
+    fun flip(dir: Char) = onTello { flip(dir, defaultOnFinished) }
 
     private val defaultOnFinished: (response: String) -> Unit = { readyForNextCommand = true }
 

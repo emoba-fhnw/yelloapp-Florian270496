@@ -20,6 +20,10 @@ class TelloConnector(private val ip: String,
         onFinished.invoke(sendCommandAndWait("command"))
     }
 
+    fun disconnect() {
+        commandSocket.disconnect()
+    }
+
     fun startStatusNotification(onNewStatus: (String) -> Unit){
         statusSocket = DatagramSocket(statePort)
 
@@ -32,6 +36,7 @@ class TelloConnector(private val ip: String,
             onNewStatus.invoke(String(receivePacket.data, 0, receivePacket.length, StandardCharsets.UTF_8))
         }
     }
+
 
     fun takeoff(onFinished: (response: String) -> Unit)         = onFinished.invoke(sendCommandAndWait("takeoff"))
     fun land(onFinished: (response: String) -> Unit)            = onFinished.invoke(sendCommandAndWait("land"))

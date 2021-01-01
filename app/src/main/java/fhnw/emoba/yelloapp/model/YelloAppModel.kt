@@ -17,11 +17,8 @@ class YelloAppModel(private val tello: TelloConnector) {
         get() = connected && readyForNextCommand
 
     var height by mutableStateOf(0.0f)
-
     var battery by mutableStateOf(0.0f)
-
     var wifiStrength by mutableStateOf(0.0f)
-
     var speed by mutableStateOf(0.0f)
 
     var leftRight by mutableStateOf(0)
@@ -81,6 +78,14 @@ class YelloAppModel(private val tello: TelloConnector) {
                 readyForNextCommand = true
                 continuousStatus()
             }
+        }
+    }
+
+    fun disconnect() {
+        modelScope.launch {
+            tello.disconnect()
+            connected = false
+            readyForNextCommand = false
         }
     }
 

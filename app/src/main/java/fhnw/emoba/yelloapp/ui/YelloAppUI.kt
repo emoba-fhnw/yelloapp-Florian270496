@@ -34,10 +34,9 @@ fun YelloAppUI(model: YelloAppModel){
                             modifier = Modifier.padding(padding))
                     }
                     Row {
-                        Button(onClick  = { connect() },
-                            enabled  = !connected,
+                        Button(onClick  = { if (connected) disconnect() else connect() },
                             modifier = Modifier.padding(padding)) {
-                            Text("Connect")
+                            Text(if (connected) "Disconnect" else "Connect")
                         }
                         Button(onClick  = { emergency() },
                             enabled = connected,

@@ -1,12 +1,15 @@
 package fhnw.emoba.yelloapp.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import fhnw.emoba.yelloapp.model.YelloAppModel
 
 val padding = 6.dp
@@ -17,19 +20,28 @@ fun YelloAppUI(model: YelloAppModel){
         with(model){
             Box(Modifier.fillMaxSize().padding(padding)){
                 Column(Modifier.align(Alignment.TopStart)) {
-                    Row {
+                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                         Text(text     = battery.format("Battery: %.0f%%"),
+                            fontSize = 18.sp,
+                            fontStyle = FontStyle.Italic,
                             style    = MaterialTheme.typography.h6,
                             modifier = Modifier.padding(padding))
                         Text(text     = wifiStrength.format("Wifi: %.0f%% "),
+                            fontSize = 18.sp,
+                            fontStyle = FontStyle.Italic,
                             style    = MaterialTheme.typography.h6,
                             modifier = Modifier.padding(padding))
                     }
-                    Row {
+                    Divider(modifier = Modifier.padding(bottom = 3.dp, top = 3.dp), Color.LightGray)
+                    Row(modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp), horizontalArrangement = Arrangement.SpaceBetween) {
                         Text(text     = speed.format("Speed: %.1fm/s"),
+                            fontSize = 18.sp,
+                            fontStyle = FontStyle.Italic,
                             style    = MaterialTheme.typography.h6,
                             modifier = Modifier.padding(padding))
                         Text(text     = height.format("Height: %.1fcm"),
+                            fontSize = 18.sp,
+                            fontStyle = FontStyle.Italic,
                             style    = MaterialTheme.typography.h6,
                             modifier = Modifier.padding(padding))
                     }

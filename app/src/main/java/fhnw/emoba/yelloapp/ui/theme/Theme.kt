@@ -47,7 +47,7 @@ private val appLightColors = Colors(
 )
 
 @Composable
-fun DeezerAppTheme(darkTheme: Boolean, content: @Composable() () -> Unit) {
+fun YelloAppTheme(darkTheme: Boolean, content: @Composable() () -> Unit) {
     MaterialTheme(
             colors     = if (darkTheme) appDarkColors else appLightColors,
             typography = typography,

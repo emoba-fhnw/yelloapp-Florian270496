@@ -12,6 +12,7 @@ class YelloAppModel(private val tello: TelloConnector) {
 
     var connected by mutableStateOf(false)
     var readyForNextCommand by mutableStateOf(false)
+    var isDarkTheme by mutableStateOf(false)
 
     val available
         get() = connected && readyForNextCommand

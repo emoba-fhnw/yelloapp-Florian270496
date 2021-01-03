@@ -105,7 +105,13 @@ private fun Body(model: YelloAppModel) {
             if(connected){
                 Box(Modifier.align(Alignment.Center).fillMaxHeight(0.5f).fillMaxWidth(0.8f)){
                     Column(Modifier.align(Alignment.TopStart)) {
-                        Text("left <-> right")
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ){
+                            Text("Left")
+                            Text("Right")
+                        }
                         Slider(value            = leftRight.toFloat(),
                             valueRange       = -100f..100f,
                             onValueChange    = { updateLeftRight(it.toInt()) },
@@ -115,7 +121,14 @@ private fun Body(model: YelloAppModel) {
                             activeTrackColor = Color(0xFF425292),
                         )
 
-                        Text("backward <-> forward")
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ){
+                            Text("Backward")
+                            Text("Forward")
+                        }
+//                        Text("backward <-> forward")
                         Slider(value            = forwardBackward.toFloat(),
                             valueRange       = -100f..100f,
                             onValueChange    = { updateForwardBackward(it.toInt()) },
@@ -125,7 +138,14 @@ private fun Body(model: YelloAppModel) {
                             activeTrackColor = Color(0xFF425292),
                         )
 
-                        Text("down <-> up")
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ){
+                            Text("Down")
+                            Text("Up")
+                        }
+//                        Text("down <-> up")
                         Slider(value            = upwardDownward.toFloat(),
                             valueRange       = -100f..100f,
                             onValueChange    = { updateUpwardDownward(it.toInt()) },
@@ -135,7 +155,14 @@ private fun Body(model: YelloAppModel) {
                             activeTrackColor = Color(0xFF425292),
                         )
 
-                        Text("rotate left <-> rotate right")
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ){
+                            Text("Rotate Left")
+                            Text("Rotate Right")
+                        }
+//                        Text("rotate left <-> rotate right")
                         Slider(value            = rotateLeftRight.toFloat(),
                             valueRange       = -100f..100f,
                             onValueChange    = { updateRotateLeftRight(it.toInt()) },

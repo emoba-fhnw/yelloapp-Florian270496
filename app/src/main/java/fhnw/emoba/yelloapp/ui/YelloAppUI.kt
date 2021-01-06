@@ -8,6 +8,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fhnw.emoba.yelloapp.model.YelloAppModel
@@ -38,12 +40,20 @@ private fun TopBar(model: YelloAppModel) {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
+                    Button(
+                        onClick = { if (connected) disconnect() else connect() },
+                        modifier = Modifier.padding(padding).width(120.dp),
+                        colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
+                    ) {
+                        Text(if (connected) "Disconnect" else "Connect")
+                    }
                     Text(
                         text = battery.format("Battery: %.0f%%"),
                         fontSize = 18.sp,
                         fontStyle = FontStyle.Italic,
                         style = MaterialTheme.typography.h6,
-                        modifier = Modifier.padding(padding)
+                        modifier = Modifier.padding(padding),
+                        textAlign = TextAlign.Left
                     )
                     Text(
                         text = wifiStrength.format("Wifi: %.0f%% "),
@@ -58,12 +68,21 @@ private fun TopBar(model: YelloAppModel) {
                     modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
+                    Button(
+                        onClick = { emergency() },
+                        enabled = connected,
+                        modifier = Modifier.padding(padding).width(120.dp),
+                        colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFFE60000), contentColor = Color.White)
+                    ) {
+                        Text("Emergency")
+                    }
                     Text(
                         text = speed.format("Speed: %.1fm/s"),
                         fontSize = 18.sp,
                         fontStyle = FontStyle.Italic,
                         style = MaterialTheme.typography.h6,
-                        modifier = Modifier.padding(padding)
+                        modifier = Modifier.padding(padding),
+                        textAlign = TextAlign.Right
                     )
                     Text(
                         text = height.format("Height: %.1fcm"),
@@ -77,21 +96,8 @@ private fun TopBar(model: YelloAppModel) {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 )  {
-                    Button(
-                        onClick = { if (connected) disconnect() else connect() },
-                        modifier = Modifier.padding(padding).width(120.dp),
-                        colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
-                    ) {
-                        Text(if (connected) "Disconnect" else "Connect")
-                    }
-                    Button(
-                        onClick = { emergency() },
-                        enabled = connected,
-                        modifier = Modifier.padding(padding).width(120.dp),
-                        colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFFE60000), contentColor = Color.White)
-                    ) {
-                        Text("Emergency")
-                    }
+
+
                 }
             }
         }

@@ -1,5 +1,6 @@
 package fhnw.emoba
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         setContent {
             app.CreateAppUI()
         }
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
     }
 
     /**

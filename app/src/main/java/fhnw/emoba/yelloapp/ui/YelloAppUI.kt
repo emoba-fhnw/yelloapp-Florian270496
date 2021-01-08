@@ -1,5 +1,7 @@
 package fhnw.emoba.yelloapp.ui
 
+
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -7,11 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import fhnw.emoba.R
 import fhnw.emoba.yelloapp.model.YelloAppModel
 import fhnw.emoba.yelloapp.ui.theme.YelloAppTheme
 
@@ -34,7 +39,7 @@ fun YelloAppUI(model: YelloAppModel) {
 @Composable
 private fun TopBar(model: YelloAppModel) {
     model.apply {
-        Box(Modifier.padding(padding)) {
+        Box(Modifier.padding(start = 6.dp, end = 6.dp, top = 6.dp, bottom = 0.dp)) {
             Column(Modifier.align(Alignment.TopStart)) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -53,7 +58,7 @@ private fun TopBar(model: YelloAppModel) {
                         fontStyle = FontStyle.Italic,
                         style = MaterialTheme.typography.h6,
                         modifier = Modifier.padding(padding),
-                        textAlign = TextAlign.Left
+                        textAlign = TextAlign.Center
                     )
                     Text(
                         text = wifiStrength.format("Wifi: %.0f%% "),
@@ -82,7 +87,7 @@ private fun TopBar(model: YelloAppModel) {
                         fontStyle = FontStyle.Italic,
                         style = MaterialTheme.typography.h6,
                         modifier = Modifier.padding(padding),
-                        textAlign = TextAlign.Right
+                        textAlign = TextAlign.Center
                     )
                     Text(
                         text = height.format("Height: %.1fcm"),
@@ -107,11 +112,26 @@ private fun TopBar(model: YelloAppModel) {
 @Composable
 private fun Body(model: YelloAppModel) {
     model.apply {
-        Box(Modifier.fillMaxSize().padding(padding)){
+        Box(Modifier.fillMaxSize().padding(start = 6.dp, end = 6.dp, top = 0.dp, bottom = 0.dp)){
             if(connected){
-                Box(Modifier.align(Alignment.Center).fillMaxHeight(0.5f).fillMaxWidth(0.8f)){
+                Box(Modifier.align(Alignment.TopCenter).fillMaxHeight(0.5f).fillMaxWidth(0.8f)){
                     Column(Modifier.align(Alignment.TopStart)) {
+                                                /*IconButton(onClick = { disconnect() }) {
+                            Icon(vectorResource(R.drawable.joystick1).copy(defaultWidth = 36.dp, defaultHeight = 36.dp),
+                                tint = MaterialTheme.colors.onSurface,
+                            )
+                        }*/
+
                         Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ){
+                            val imgAsset = imageResource(id = R.drawable.joystick1)
+                            Image(imgAsset)
+                            val imgAsset2 = imageResource(id = R.drawable.joystick2)
+                            Image(imgAsset2)
+                        }
+                        /*Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ){
@@ -125,9 +145,9 @@ private fun Body(model: YelloAppModel) {
                             thumbColor       = Color(0xFF425292),
                             inactiveTrackColor = Color(0xFF425292),
                             activeTrackColor = Color(0xFF425292),
-                        )
+                        )*/
 
-                        Row(
+/*                        Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ){
@@ -142,9 +162,9 @@ private fun Body(model: YelloAppModel) {
                             thumbColor       = Color(0xFF425292),
                             inactiveTrackColor = Color(0xFF425292),
                             activeTrackColor = Color(0xFF425292),
-                        )
+                        )*/
 
-                        Row(
+/*                        Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ){
@@ -176,7 +196,7 @@ private fun Body(model: YelloAppModel) {
                             thumbColor       = Color(0xFF425292),
                             inactiveTrackColor = Color(0xFF425292),
                             activeTrackColor = Color(0xFF425292),
-                        )
+                        )*/
                     }
                 }
             }

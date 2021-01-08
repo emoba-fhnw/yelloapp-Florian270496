@@ -1,4 +1,4 @@
-package fhnw.emoba.modules.module09.telloplayground.data
+package fhnw.emoba.yelloapp.data
 
 import java.net.DatagramPacket
 import java.net.DatagramSocket
@@ -47,6 +47,7 @@ class TelloConnector(private val ip: String,
     fun rc(leftRight: Int, forwardBack: Int, upDown: Int, yaw: Int) = fireAndForgetCommand("rc $leftRight $forwardBack $upDown $yaw")
     fun stop()                                                      = fireAndForgetCommand("stop")
 
+    fun askWifi(onFinished: (response: String) -> Unit) = onFinished.invoke(sendCommandAndWait("wifi?"))
 
     private fun sendCommandAndWait(command: String) : String {
         if (!commandSocket.isConnected){

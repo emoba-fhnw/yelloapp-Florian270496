@@ -56,7 +56,8 @@ private fun TopBar(model: YelloAppModel) {
                         textAlign = TextAlign.Left
                     )
                     Text(
-                        text = wifiStrength.format("Wifi: %.0f%% "),
+//                        text = wifiStrength.format("Wifi: %.0f%% "),
+                        text = "Time: ${flightTime}s",                    //        (this is the string version)
                         fontSize = 18.sp,
                         fontStyle = FontStyle.Italic,
                         style = MaterialTheme.typography.h6,

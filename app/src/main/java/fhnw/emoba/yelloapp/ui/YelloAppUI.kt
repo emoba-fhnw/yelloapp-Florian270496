@@ -116,12 +116,6 @@ private fun Body(model: YelloAppModel) {
             if(connected){
                 Box(Modifier.align(Alignment.TopCenter).fillMaxHeight(0.5f).fillMaxWidth(0.8f)){
                     Column(Modifier.align(Alignment.TopStart)) {
-                                                /*IconButton(onClick = { disconnect() }) {
-                            Icon(vectorResource(R.drawable.joystick1).copy(defaultWidth = 36.dp, defaultHeight = 36.dp),
-                                tint = MaterialTheme.colors.onSurface,
-                            )
-                        }*/
-
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween

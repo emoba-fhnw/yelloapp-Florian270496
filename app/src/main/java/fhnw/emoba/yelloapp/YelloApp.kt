@@ -15,7 +15,7 @@ object YelloApp : EmobaApp {
     override fun initialize(activity: AppCompatActivity, savedInstanceState: Bundle?) {
 
         /// For simulator:
-        val connector = TelloConnector(ip          = "192.168.1.6",
+        val connector = TelloConnector(ip          = "192.168.0.18",
             commandPort = 8879,
             statePort   = 8890)
 

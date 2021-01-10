@@ -11,6 +11,8 @@ import kotlin.math.sqrt
 
 class YelloAppModel(private val tello: TelloConnector) {
 
+    var ip = "192.168.1.5"
+
     private val modelScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     var connected by mutableStateOf(false)
@@ -83,7 +85,7 @@ class YelloAppModel(private val tello: TelloConnector) {
 
     fun connect() {
         modelScope.launch {
-            tello.connect {
+            tello.connect(ip = ip) {
                 connected = true
                 readyForNextCommand = true
                 continuousStatus()
@@ -174,6 +176,10 @@ class YelloAppModel(private val tello: TelloConnector) {
     fun flip(dir: Char) = onTello { flip(dir, defaultOnFinished) }
     fun emergency() = onTello { emergency(defaultOnFinished) }
     fun updateWifiStrength() = onTello { askWifi(updateWifiOnFinished) }
+
+//    fun updateIp(newIp : String) = onTello { ip = newIp }
+//    fun getIp() = tello.ip
+
 
     private val defaultOnFinished: (response: String) -> Unit = { readyForNextCommand = true }
 

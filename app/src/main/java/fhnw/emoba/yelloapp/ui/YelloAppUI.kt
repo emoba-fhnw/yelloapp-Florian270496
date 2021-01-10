@@ -5,10 +5,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fhnw.emoba.yelloapp.model.YelloAppModel
@@ -30,6 +33,11 @@ fun YelloAppUI(model: YelloAppModel) {
 
 @Composable
 private fun TopBar(model: YelloAppModel) {
+
+    // State to manage if the alert dialog is showing or not.
+    // Default is false (not showing)
+    val (showDialog, setShowDialog) =  remember { mutableStateOf(false) }
+
     model.apply {
         Box(Modifier.background(Color(0xFF404040))) {
                 Row(
@@ -38,12 +46,14 @@ private fun TopBar(model: YelloAppModel) {
                 ) {
                     Column {
                         Button(
-                            onClick = { if (connected) disconnect() else connect() },
+                            onClick = { if (connected) disconnect() else setShowDialog(true) },
                             modifier = Modifier.padding(padding).width(120.dp),
                             colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
                         ) {
                             Text(if (connected) "Disconnect" else "Connect")
                         }
+                        // Create alert dialog, pass the showDialog state to this Composable
+                        DialogIpAddress(showDialog, model, setShowDialog)
                         Button(
                             onClick = { takeoff() },
                             enabled = available,
@@ -202,3 +212,47 @@ private fun BottomBar(model: YelloAppModel) {
 }
 
 private fun Float.format(pattern: String): String = String.format(pattern, this)
+
+
+@Composable
+fun DialogIpAddress(showDialog: Boolean, model: YelloAppModel, setShowDialog: (Boolean) -> Unit) {
+    if (showDialog) {
+        val textState = remember { mutableStateOf(TextFieldValue(model.ip)) }
+        AlertDialog(
+            onDismissRequest = {
+            },
+            title = {
+                Text("Set IP:")
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        // Change the state to close the dialog
+                        setShowDialog(false)
+                        // Update ip and connect
+                        model.ip = textState.value.text
+                        model.connect()
+                    },
+                ) {
+                    Text("Confirm")
+                }
+            },
+            dismissButton = {
+                Button(
+                    onClick = {
+                        // Change the state to close the dialog
+                        setShowDialog(false)
+                    },
+                ) {
+                    Text("Dismiss")
+                }
+            },
+            text = {
+                TextField(value = textState.value,
+                    onValueChange = { textState.value = it })
+                TextField(value = textState.value,
+                    onValueChange = { textState.value = it })
+            },
+        )
+    }
+}

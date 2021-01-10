@@ -20,10 +20,11 @@ object YelloApp : EmobaApp {
 //            statePort   = 8890)
 
         /// For the real drone:
-        val connector = TelloConnector(ip          = "192.168.10.1",
-            commandPort = 8889,
-            statePort   = 8890)
+//        val connector = TelloConnector(ip          = "192.168.10.1",
+//            commandPort = 8889,
+//            statePort   = 8890)
 
+        val connector = TelloConnector()
 
 
         model = YelloAppModel(connector)

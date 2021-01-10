@@ -5,14 +5,19 @@ import java.net.DatagramSocket
 import java.net.InetAddress
 import java.nio.charset.StandardCharsets
 
-class TelloConnector(private val ip: String,
-                     private val commandPort: Int,
-                     private val statePort: Int) {
+class TelloConnector {
+
+    // Standard IP on simulator: 192.168.1.6 / on real drone: 192.168.10.1
+//    var ip = "192.168.1.5"
+    // Standard IP on simulator: 8879/ on real drone: 8889
+    var commandPort = 8879
+    // Standard statusPort simulator and on real drone is the same (8890)
+    var statusPort = 8890
 
     private lateinit var commandSocket: DatagramSocket
     private lateinit var statusSocket: DatagramSocket
 
-    fun connect(onFinished: (response: String) -> Unit) {
+    fun connect(ip : String, onFinished: (response: String) -> Unit) {
         commandSocket = DatagramSocket(commandPort).apply {
             connect(InetAddress.getByName(ip), commandPort)
         }
@@ -25,7 +30,7 @@ class TelloConnector(private val ip: String,
     }
 
     fun startStatusNotification(onNewStatus: (String) -> Unit){
-        statusSocket = DatagramSocket(statePort)
+        statusSocket = DatagramSocket(statusPort)
 
         while(!commandSocket.isClosed){
             val packetSize    = 512

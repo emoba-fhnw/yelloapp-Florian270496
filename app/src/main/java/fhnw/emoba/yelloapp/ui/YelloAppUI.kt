@@ -31,85 +31,86 @@ fun YelloAppUI(model: YelloAppModel) {
 @Composable
 private fun TopBar(model: YelloAppModel) {
     model.apply {
-        Box(Modifier.padding(start = 6.dp, end = 6.dp, top = 6.dp, bottom = 0.dp)) {
-            Column(Modifier.align(Alignment.TopStart)) {
+        Box(Modifier.background(Color(0xFF404040))) {
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    modifier = Modifier.fillMaxWidth().padding(start = 6.dp, end = 6.dp, top = 6.dp, bottom = 6.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    Button(
-                        onClick = { if (connected) disconnect() else connect() },
-                        modifier = Modifier.padding(padding).width(120.dp),
-                        colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
-                    ) {
-                        Text(if (connected) "Disconnect" else "Connect")
-                    }
-                    Button(
-                        onClick = { emergency() },
-                        enabled = connected,
-                        modifier = Modifier.padding(padding).width(120.dp),
-                        colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFFE60000), contentColor = Color.White)
-                    ) {
-                        Text("Emergency")
-                    }
-                    Text(
-                        text = battery.format("Battery: %.0f%%"),
-                        fontSize = 18.sp,
-                        fontStyle = FontStyle.Italic,
-                        style = MaterialTheme.typography.h6,
-                        modifier = Modifier.padding(padding),
-                        textAlign = TextAlign.Center
-                    )
-                    Text(
-                        text = speed.format("Speed: %.1fm/s"),
-                        fontSize = 18.sp,
-                        fontStyle = FontStyle.Italic,
-                        style = MaterialTheme.typography.h6,
-                        modifier = Modifier.padding(padding),
-                        textAlign = TextAlign.Center
-                    )
-                }
-                Divider(modifier = Modifier.padding(bottom = 3.dp, top = 3.dp), Color.LightGray)
-                Row(
-                    modifier = Modifier.fillMaxWidth().padding(start = 0.dp, end = 0.dp, top = 0.dp, bottom = 0.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Button(
-                        onClick = { takeoff() },
-                        enabled = available,
-                        modifier = Modifier.padding(padding).width(120.dp),
-                        colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
+                    Column {
+                        Button(
+                            onClick = { if (connected) disconnect() else connect() },
+                            modifier = Modifier.padding(padding).width(120.dp),
+                            colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
+                        ) {
+                            Text(if (connected) "Disconnect" else "Connect")
+                        }
+                        Button(
+                            onClick = { takeoff() },
+                            enabled = available,
+                            modifier = Modifier.padding(padding).width(120.dp),
+                            colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
 
-                    ) {
-                        Text("Takeoff")
+                        ) {
+                            Text("Takeoff")
+                        }
                     }
-                    Button(
-                        onClick = { land() },
-                        enabled = available,
-                        modifier = Modifier.padding(padding).width(120.dp),
-                        colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
+                    Column {
+                        Button(
+                            onClick = { emergency() },
+                            enabled = connected,
+                            modifier = Modifier.padding(padding).width(120.dp),
+                            colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFFE60000), contentColor = Color.White)
+                        ) {
+                            Text("Emergency")
+                        }
+                        Button(
+                            onClick = { land() },
+                            enabled = available,
+                            modifier = Modifier.padding(padding).width(120.dp),
+                            colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
 
-                    ) {
-                        Text("Land")
+                        ) {
+                            Text("Land")
+                        }
                     }
-                    Text(
-                        text = height.format("Height: %.1fcm"),
-                        fontSize = 18.sp,
-                        fontStyle = FontStyle.Italic,
-                        style = MaterialTheme.typography.h6,
-                        modifier = Modifier.padding(padding)
-                    )
-                    Text(
+                    Column {
+                        Text(
+                            text = battery.format("Battery: %.0f%%"),
+                            fontSize = 18.sp,
+                            fontStyle = FontStyle.Italic,
+                            style = MaterialTheme.typography.h6,
+                            modifier = Modifier.padding(padding),
+                            color = Color.White
+                        )
+                        Text(
+                            text = height.format("Height: %.1fcm"),
+                            fontSize = 18.sp,
+                            fontStyle = FontStyle.Italic,
+                            style = MaterialTheme.typography.h6,
+                            modifier = Modifier.padding(padding),
+                            color = Color.White
+                        )
+                    }
+                    Column {
+                        Text(
+                            text = speed.format("Speed: %.1fm/s"),
+                            fontSize = 18.sp,
+                            fontStyle = FontStyle.Italic,
+                            style = MaterialTheme.typography.h6,
+                            modifier = Modifier.padding(padding),
+                            color = Color.White
+                        )
+                        Text(
 //                        text = wifiStrength.format("Wifi: %.0f%% "),
-                        text = "Time: ${flightTime}s",                    //        (this is the string version)
-                        fontSize = 18.sp,
-                        fontStyle = FontStyle.Italic,
-                        style = MaterialTheme.typography.h6,
-                        modifier = Modifier.padding(padding)
-                    )
+                            text = "Time: ${flightTime}s",                    //        (this is the string version)
+                            fontSize = 18.sp,
+                            fontStyle = FontStyle.Italic,
+                            style = MaterialTheme.typography.h6,
+                            modifier = Modifier.padding(padding),
+                            color = Color.White
+                        )
+                    }
                 }
-
-            }
         }
     }
 }

@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import fhnw.emoba.yelloapp.data.TelloConnector
 import kotlinx.coroutines.*
 import kotlin.math.pow
+import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
 class YelloAppModel(private val tello: TelloConnector) {
@@ -40,43 +41,45 @@ class YelloAppModel(private val tello: TelloConnector) {
     var rotateLeftRight by mutableStateOf(0)
         private set
 
+    var flightControlLeft by mutableStateOf(FlightControl.Zero)
+    var flightControlRight by mutableStateOf(FlightControl.Zero)
 
-
-    fun updateForwardBackward(value: Int) {
-        if (value == forwardBackward || !connected) {
-            return
-        }
-        forwardBackward = value
-        rc(leftRight, forwardBackward, upwardDownward, rotateLeftRight)
-    }
-
-
-    fun updateLeftRight(value: Int) {
-        if (value == leftRight  || !connected) {
-            return
-        }
-        leftRight = value
-        rc(leftRight, forwardBackward, upwardDownward, rotateLeftRight)
-    }
-
-
-    fun updateUpwardDownward(value: Int) {
-        if (value == upwardDownward || !connected) {
-            return
-        }
-        upwardDownward = value
-        rc(leftRight, forwardBackward, upwardDownward, rotateLeftRight)
-    }
-
-
-    fun updateRotateLeftRight(value: Int) {
-        if (value == rotateLeftRight  || !connected) {
-            return
-        }
-        rotateLeftRight = value
-        rc(leftRight, forwardBackward, upwardDownward, rotateLeftRight)
-    }
-
+//
+//    fun updateForwardBackward(value: Int) {
+//        if (value == forwardBackward || !connected) {
+//            return
+//        }
+//        forwardBackward = value
+//        rc(leftRight, forwardBackward, upwardDownward, rotateLeftRight)
+//    }
+//
+//
+//    fun updateLeftRight(value: Int) {
+//        if (value == leftRight  || !connected) {
+//            return
+//        }
+//        leftRight = value
+//        rc(leftRight, forwardBackward, upwardDownward, rotateLeftRight)
+//    }
+//
+//
+//    fun updateUpwardDownward(value: Int) {
+//        if (value == upwardDownward || !connected) {
+//            return
+//        }
+//        upwardDownward = value
+//        rc(leftRight, forwardBackward, upwardDownward, rotateLeftRight)
+//    }
+//
+//
+//    fun updateRotateLeftRight(value: Int) {
+//        if (value == rotateLeftRight  || !connected) {
+//            return
+//        }
+//        rotateLeftRight = value
+//        rc(leftRight, forwardBackward, upwardDownward, rotateLeftRight)
+//    }
+//
 
     fun connect() {
         modelScope.launch {
@@ -127,9 +130,23 @@ class YelloAppModel(private val tello: TelloConnector) {
             }
         }
         rcJob = modelScope.launch {
-            delay(50L)  // nur alle 50 ms ein neues rc Command an Tello schicken
+            // Only send every 50 milliseconds a new command:
+            delay(50L)
             if(isActive){
                 tello.rc(leftRight, forwardBack, upDown, rotateLeftRight)
+            }
+        }
+    }
+
+    fun fly() {
+        if (connected) {
+            modelScope.launch {
+                rc(
+                    (flightControlRight.x * 100).roundToInt(),
+                    (-flightControlRight.y * 100).roundToInt(),
+                    (-flightControlLeft.y * 100).roundToInt(),
+                    (flightControlLeft.x * 100).roundToInt()
+                )
             }
         }
     }

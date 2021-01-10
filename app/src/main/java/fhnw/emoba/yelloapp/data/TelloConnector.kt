@@ -21,13 +21,13 @@ class TelloConnector(private val ip: String,
     }
 
     fun disconnect() {
-        commandSocket.disconnect()
+        commandSocket.close()
     }
 
     fun startStatusNotification(onNewStatus: (String) -> Unit){
         statusSocket = DatagramSocket(statePort)
 
-        while(true){
+        while(!commandSocket.isClosed){
             val packetSize    = 512
             val receivePacket = DatagramPacket(ByteArray(packetSize), packetSize)
 
@@ -35,6 +35,9 @@ class TelloConnector(private val ip: String,
 
             onNewStatus.invoke(String(receivePacket.data, 0, receivePacket.length, StandardCharsets.UTF_8))
         }
+
+        // After loop: close the statusSocket:
+        statusSocket.close()
     }
 
 

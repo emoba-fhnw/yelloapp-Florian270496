@@ -51,6 +51,14 @@ private fun TopBar(model: YelloAppModel) {
                     ) {
                         Text(if (connected) "Disconnect" else "Connect")
                     }
+                    Button(
+                        onClick = { emergency() },
+                        enabled = connected,
+                        modifier = Modifier.padding(padding).width(120.dp),
+                        colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFFE60000), contentColor = Color.White)
+                    ) {
+                        Text("Emergency")
+                    }
                     Text(
                         text = battery.format("Battery: %.0f%%"),
                         fontSize = 18.sp,
@@ -58,6 +66,45 @@ private fun TopBar(model: YelloAppModel) {
                         style = MaterialTheme.typography.h6,
                         modifier = Modifier.padding(padding),
                         textAlign = TextAlign.Center
+                    )
+                    Text(
+                        text = speed.format("Speed: %.1fm/s"),
+                        fontSize = 18.sp,
+                        fontStyle = FontStyle.Italic,
+                        style = MaterialTheme.typography.h6,
+                        modifier = Modifier.padding(padding),
+                        textAlign = TextAlign.Center
+                    )
+                }
+                Divider(modifier = Modifier.padding(bottom = 3.dp, top = 3.dp), Color.LightGray)
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(start = 0.dp, end = 0.dp, top = 0.dp, bottom = 0.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Button(
+                        onClick = { takeoff() },
+                        enabled = available,
+                        modifier = Modifier.padding(padding).width(120.dp),
+                        colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
+
+                    ) {
+                        Text("Takeoff")
+                    }
+                    Button(
+                        onClick = { land() },
+                        enabled = available,
+                        modifier = Modifier.padding(padding).width(120.dp),
+                        colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
+
+                    ) {
+                        Text("Land")
+                    }
+                    Text(
+                        text = height.format("Height: %.1fcm"),
+                        fontSize = 18.sp,
+                        fontStyle = FontStyle.Italic,
+                        style = MaterialTheme.typography.h6,
+                        modifier = Modifier.padding(padding)
                     )
                     Text(
 //                        text = wifiStrength.format("Wifi: %.0f%% "),
@@ -68,42 +115,7 @@ private fun TopBar(model: YelloAppModel) {
                         modifier = Modifier.padding(padding)
                     )
                 }
-                Divider(modifier = Modifier.padding(bottom = 3.dp, top = 3.dp), Color.LightGray)
-                Row(
-                    modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Button(
-                        onClick = { emergency() },
-                        enabled = connected,
-                        modifier = Modifier.padding(padding).width(120.dp),
-                        colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFFE60000), contentColor = Color.White)
-                    ) {
-                        Text("Emergency")
-                    }
-                    Text(
-                        text = speed.format("Speed: %.1fm/s"),
-                        fontSize = 18.sp,
-                        fontStyle = FontStyle.Italic,
-                        style = MaterialTheme.typography.h6,
-                        modifier = Modifier.padding(padding),
-                        textAlign = TextAlign.Center
-                    )
-                    Text(
-                        text = height.format("Height: %.1fcm"),
-                        fontSize = 18.sp,
-                        fontStyle = FontStyle.Italic,
-                        style = MaterialTheme.typography.h6,
-                        modifier = Modifier.padding(padding)
-                    )
-                }
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                )  {
 
-
-                }
             }
         }
     }
@@ -112,7 +124,7 @@ private fun TopBar(model: YelloAppModel) {
 @Composable
 private fun Body(model: YelloAppModel) {
     model.apply {
-        Box(Modifier.fillMaxSize().padding(start = 6.dp, end = 6.dp, top = 0.dp, bottom = 0.dp)){
+        Box(Modifier.fillMaxSize().padding(start = 6.dp, end = 6.dp, top = 35.dp, bottom = 0.dp)){
             if(connected){
                 Box(Modifier.align(Alignment.TopCenter).fillMaxHeight(0.5f).fillMaxWidth(0.8f)){
                     Column(Modifier.align(Alignment.TopStart)) {
@@ -125,7 +137,6 @@ private fun Body(model: YelloAppModel) {
                             val imgAsset2 = imageResource(id = R.drawable.joystick2)
                             Image(imgAsset2)
                         }
-
                     }
                 }
             }
@@ -136,67 +147,48 @@ private fun Body(model: YelloAppModel) {
 @Composable
 private fun BottomBar(model: YelloAppModel) {
     model.apply {
-        Box(Modifier.fillMaxSize().padding(padding)) {
-            Column(Modifier.align(Alignment.BottomStart)) {
-                Button(
-                    onClick = { takeoff() },
-                    enabled = available,
-                    modifier = Modifier.padding(padding).width(90.dp),
-                    colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
-
+        Box(Modifier.fillMaxSize().padding(start = 120.dp, end = 120.dp, top = 6.dp, bottom = 6.dp)) {
+            Column(Modifier.align(Alignment.BottomStart).align(Alignment.Center)) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text("Takeoff")
-                }
-                Button(
-                    onClick = { land() },
-                    enabled = available,
-                    modifier = Modifier.padding(padding).width(90.dp),
-                    colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
+                    Button(
+                        onClick = { flip('f') },
+                        enabled = available,
+                        modifier = Modifier.padding(padding).width(90.dp),
+                        colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
 
-                ) {
-                    Text("Land")
-                }
-            }
+                    ) {
+                        Text("Flip f")
+                    }
+                    Button(
+                        onClick = { flip('b') },
+                        enabled = available,
+                        modifier = Modifier.padding(padding).width(90.dp),
+                        colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
 
-            Column(Modifier.align(Alignment.BottomCenter)) {
-                Button(
-                    onClick = { flip('f') },
-                    enabled = available,
-                    modifier = Modifier.padding(padding).width(90.dp),
-                    colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
+                    ) {
+                        Text("Flip b")
+                    }
+                    Button(
+                        onClick = { flip('l') },
+                        enabled = available,
+                        modifier = Modifier.padding(padding).width(90.dp),
+                        colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
 
-                ) {
-                    Text("Flip f")
-                }
-                Button(
-                    onClick = { flip('b') },
-                    enabled = available,
-                    modifier = Modifier.padding(padding).width(90.dp),
-                    colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
+                    ) {
+                        Text("Flip l")
+                    }
+                    Button(
+                        onClick = { flip('r') },
+                        enabled = available,
+                        modifier = Modifier.padding(padding).width(90.dp),
+                        colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
 
-                ) {
-                    Text("Flip b")
-                }
-            }
-
-            Column(Modifier.align(Alignment.BottomEnd)) {
-                Button(
-                    onClick = { flip('l') },
-                    enabled = available,
-                    modifier = Modifier.padding(padding).width(90.dp),
-                    colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
-
-                ) {
-                    Text("Flip l")
-                }
-                Button(
-                    onClick = { flip('r') },
-                    enabled = available,
-                    modifier = Modifier.padding(padding).width(90.dp),
-                    colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
-
-                ) {
-                    Text("Flip r")
+                    ) {
+                        Text("Flip r")
+                    }
                 }
             }
         }

@@ -217,24 +217,22 @@ private fun Float.format(pattern: String): String = String.format(pattern, this)
 @Composable
 fun DialogIpAddress(showDialog: Boolean, model: YelloAppModel, setShowDialog: (Boolean) -> Unit) {
     if (showDialog) {
-        val textState = remember { mutableStateOf(TextFieldValue(model.ip)) }
+//        val textState = remember { mutableStateOf(TextFieldValue(model.ip)) }
         AlertDialog(
             onDismissRequest = {
             },
             title = {
-                Text("Set IP:")
+                Text("Choose Drone (IP / Ports)")
             },
             confirmButton = {
                 Button(
                     onClick = {
                         // Change the state to close the dialog
                         setShowDialog(false)
-                        // Update ip and connect
-                        model.ip = textState.value.text
-                        model.connect()
+                        model.connect(true)
                     },
                 ) {
-                    Text("Confirm")
+                    Text("Real")
                 }
             },
             dismissButton = {
@@ -242,17 +240,18 @@ fun DialogIpAddress(showDialog: Boolean, model: YelloAppModel, setShowDialog: (B
                     onClick = {
                         // Change the state to close the dialog
                         setShowDialog(false)
+                        model.connect(false)
                     },
                 ) {
-                    Text("Dismiss")
+                    Text("Simulator")
                 }
             },
-            text = {
-                TextField(value = textState.value,
-                    onValueChange = { textState.value = it })
-                TextField(value = textState.value,
-                    onValueChange = { textState.value = it })
-            },
+//            text = {
+//                TextField(value = textState.value,
+//                    onValueChange = { textState.value = it })
+//                TextField(value = textState.value,
+//                    onValueChange = { textState.value = it })
+//            },
         )
     }
 }

@@ -83,9 +83,9 @@ class YelloAppModel(private val tello: TelloConnector) {
 //    }
 //
 
-    fun connect() {
+    fun connect(real : Boolean) {
         modelScope.launch {
-            tello.connect(ip = ip) {
+            tello.connect(real = real) {
                 connected = true
                 readyForNextCommand = true
                 continuousStatus()

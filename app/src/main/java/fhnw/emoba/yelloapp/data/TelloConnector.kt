@@ -8,16 +8,20 @@ import java.nio.charset.StandardCharsets
 class TelloConnector {
 
     // Standard IP on simulator: 192.168.1.6 / on real drone: 192.168.10.1
-//    var ip = "192.168.1.5"
-    // Standard IP on simulator: 8879/ on real drone: 8889
-    var commandPort = 8879
+    private val simulatorIp = "192.168.1.6"
+    private val realIp = "192.168.10.1"
+    // Standard commandPort on simulator: 8879/ on real drone: 8889
+    private val simulatorCommandPort = 8879
+    private val realCommandPort = 8889
     // Standard statusPort simulator and on real drone is the same (8890)
-    var statusPort = 8890
+    private val statusPort = 8890
 
     private lateinit var commandSocket: DatagramSocket
     private lateinit var statusSocket: DatagramSocket
 
-    fun connect(ip : String, onFinished: (response: String) -> Unit) {
+    fun connect(real : Boolean, onFinished: (response: String) -> Unit) {
+        val ip = if (real) realIp else simulatorIp
+        val commandPort = if (real) realCommandPort else simulatorCommandPort
         commandSocket = DatagramSocket(commandPort).apply {
             connect(InetAddress.getByName(ip), commandPort)
         }

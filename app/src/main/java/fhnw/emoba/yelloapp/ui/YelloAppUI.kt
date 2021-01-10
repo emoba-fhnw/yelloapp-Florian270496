@@ -10,15 +10,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.imageResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fhnw.emoba.R
 import fhnw.emoba.yelloapp.model.YelloAppModel
-import fhnw.emoba.yelloapp.ui.theme.YelloAppTheme
 
 val padding = 6.dp
 
@@ -125,7 +121,7 @@ private fun TopBar(model: YelloAppModel) {
 @Composable
 private fun Body(model: YelloAppModel) {
     model.apply {
-        Box(Modifier.fillMaxSize().padding(start = 6.dp, end = 6.dp, top = 35.dp, bottom = 0.dp)) {
+        Box(Modifier.fillMaxSize().padding(start = 100.dp, end = 100.dp, top = 35.dp, bottom = 0.dp)) {
             if (connected) {
                 Box(Modifier.align(Alignment.TopCenter).fillMaxHeight(0.5f).fillMaxWidth(0.8f)) {
                     Column(Modifier.align(Alignment.TopStart)) {
@@ -133,9 +129,9 @@ private fun Body(model: YelloAppModel) {
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            val imgAsset = imageResource(id = R.drawable.joystick1)
+                            val imgAsset = imageResource(id = R.drawable.joystick)
                             Image(imgAsset)
-                            val imgAsset2 = imageResource(id = R.drawable.joystick2)
+                            val imgAsset2 = imageResource(id = R.drawable.joystick)
                             Image(imgAsset2)
                         }
 

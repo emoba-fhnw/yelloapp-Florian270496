@@ -177,9 +177,8 @@ class YelloAppModel(private val tello: TelloConnector) {
     fun emergency() = onTello { emergency(defaultOnFinished) }
     fun updateWifiStrength() = onTello { askWifi(updateWifiOnFinished) }
 
-//    fun updateIp(newIp : String) = onTello { ip = newIp }
-//    fun getIp() = tello.ip
-
+    fun realIpAndPorts() = "${tello.realIp}: ${tello.realCommandPort} / ${tello.statusPort}"
+    fun simulatorIpAndPorts() = "${tello.simulatorIp}: ${tello.simulatorCommandPort} / ${tello.statusPort}"
 
     private val defaultOnFinished: (response: String) -> Unit = { readyForNextCommand = true }
 

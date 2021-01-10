@@ -218,7 +218,6 @@ private fun Float.format(pattern: String): String = String.format(pattern, this)
 @Composable
 fun DialogIpAddress(showDialog: Boolean, model: YelloAppModel, setShowDialog: (Boolean) -> Unit) {
     if (showDialog) {
-//        val textState = remember { mutableStateOf(TextFieldValue(model.ip)) }
         AlertDialog(
             onDismissRequest = {
             },
@@ -247,12 +246,14 @@ fun DialogIpAddress(showDialog: Boolean, model: YelloAppModel, setShowDialog: (B
                     Text("Simulator")
                 }
             },
-//            text = {
-//                TextField(value = textState.value,
-//                    onValueChange = { textState.value = it })
-//                TextField(value = textState.value,
-//                    onValueChange = { textState.value = it })
-//            },
+            text = {
+                Column {
+                    Text("Real drone:")
+                    Text("   ${model.realIpAndPorts()}")
+                    Text("Simulator drone:")
+                    Text("   ${model.simulatorIpAndPorts()}")
+                }
+            },
         )
     }
 }

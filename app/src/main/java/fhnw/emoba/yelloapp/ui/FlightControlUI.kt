@@ -25,7 +25,7 @@ fun FlightControlUI(
 ) {
     WithConstraints(modifier) {
         val backgroundImage =
-            imageResource(if (isLeftControl) R.drawable.joystick1 else R.drawable.joystick2)
+            imageResource(if (isLeftControl) R.drawable.joystick else R.drawable.joystick)
         val thumbImage = imageResource(R.drawable.joystick_center)
 
         val canvasSize = Integer.min(constraints.maxHeight, constraints.maxWidth)

@@ -25,8 +25,8 @@ fun FlightControlUI(
 ) {
     WithConstraints(modifier) {
         val backgroundImage =
-            imageResource(if (isLeftControl) R.drawable.joystick else R.drawable.joystick)
-        val thumbImage = imageResource(R.drawable.joystick_center)
+            imageResource(if (isLeftControl) R.drawable.control_left else R.drawable.control_right)
+        val thumbImage = imageResource(R.drawable.stick)
 
         val canvasSize = Integer.min(constraints.maxHeight, constraints.maxWidth)
         val maxDrag = canvasSize.toFloat() / 2

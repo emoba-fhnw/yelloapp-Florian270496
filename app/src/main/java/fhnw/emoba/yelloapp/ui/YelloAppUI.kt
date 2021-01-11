@@ -69,7 +69,7 @@ private fun TopBar(model: YelloAppModel) {
                         DialogIpAddress(showDialog, model, setShowDialog)
                         MyIcnBtn(
                             onClick = { takeoff() },
-                            enabled = available,
+                            enabled = available && !isFlying,
                             iconVectorDrawable = R.drawable.ic_icon_takeoff,
                             text = "Takeoff"
                         )
@@ -84,7 +84,7 @@ private fun TopBar(model: YelloAppModel) {
                         )
                         MyIcnBtn(
                             onClick = { land() },
-                            enabled = available,
+                            enabled = available && isFlying,
                             iconVectorDrawable = R.drawable.ic_icon_land,
                             text = "Land"
                         )
@@ -148,7 +148,7 @@ private fun BottomBar(model: YelloAppModel) {
                 ) {
                     MyIcnBtn(
                         onClick = { flip('f') },
-                        enabled = available,
+                        enabled = isFlyingAndAvailable,
                         iconVectorDrawable = R.drawable.ic_icon_flip_forward,
                         backgroundColor = btnSecondColor,
                         iconFirst = false,
@@ -157,7 +157,7 @@ private fun BottomBar(model: YelloAppModel) {
                     )
                     MyIcnBtn(
                         onClick = { flip('b') },
-                        enabled = available,
+                        enabled = isFlyingAndAvailable,
                         iconVectorDrawable = R.drawable.ic_icon_flip_backward,
                         backgroundColor = btnSecondColor,
                         iconFirst = false,
@@ -166,7 +166,7 @@ private fun BottomBar(model: YelloAppModel) {
                     )
                     MyIcnBtn(
                         onClick = { flip('f') },
-                        enabled = available,
+                        enabled = isFlyingAndAvailable,
                         iconVectorDrawable = R.drawable.ic_icon_flip_left,
                         backgroundColor = btnSecondColor,
                         iconFirst = false,
@@ -175,7 +175,7 @@ private fun BottomBar(model: YelloAppModel) {
                     )
                     MyIcnBtn(
                         onClick = { flip('r') },
-                        enabled = available,
+                        enabled = isFlyingAndAvailable,
                         iconVectorDrawable = R.drawable.ic_icon_flip_right,
                         backgroundColor = btnSecondColor,
                         iconFirst = false,

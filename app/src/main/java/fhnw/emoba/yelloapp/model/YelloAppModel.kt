@@ -11,8 +11,6 @@ import kotlin.math.sqrt
 
 class YelloAppModel(private val tello: TelloConnector) {
 
-    var ip = "192.168.1.5"
-
     private val modelScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     var connected by mutableStateOf(false)
@@ -21,6 +19,12 @@ class YelloAppModel(private val tello: TelloConnector) {
 
     val available
         get() = connected && readyForNextCommand
+
+    val isFlying
+        get() = height >= 0.1f
+
+    val isFlyingAndAvailable
+        get() = connected && readyForNextCommand && height >= 0.1f
 
     var height by mutableStateOf(0.0f)
     var battery by mutableStateOf(0.0f)

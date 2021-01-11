@@ -14,31 +14,34 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fhnw.emoba.R
 import fhnw.emoba.yelloapp.model.YelloAppModel
 
 // Some design constants:
-val padding = 4.dp
+val padSmall = 4.dp
+val padding = 6.dp
+val padDouble = 12.dp
 val btnWidth = 150.dp
 val btnHeight= 35.dp
 val btnActiveColor = Color(0xFF425292)
 val btnSecondColor= Color(0xFFAAA259)
 val btnRedColor = Color(0xFFE60000)
-const val iconScaleDefault = 0.75f
+const val iconScaleDefault = 1.0f
+val defaultFontSize = 18.sp
+val defaultFontStyle = FontStyle.Italic
 
 
 @Composable
 fun YelloAppUI(model: YelloAppModel) {
-    MaterialTheme() {
-        with(model) {
-            Scaffold(
-                topBar      = { TopBar(model) },
-                bodyContent = { Body(model) },
-                bottomBar   = { BottomBar(model)}
-            )
-        }
+    MaterialTheme {
+        Scaffold(
+            topBar      = { TopBar(model) },
+            bodyContent = { Body(model) },
+            bottomBar   = { BottomBar(model)}
+        )
     }
 }
 
@@ -52,7 +55,7 @@ private fun TopBar(model: YelloAppModel) {
     model.apply {
         Box(Modifier.background(Color(0xFF404040))) {
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(start = 6.dp, end = 6.dp, top = 6.dp, bottom = 6.dp),
+                    modifier = Modifier.fillMaxWidth().padding(start = padDouble, end = padDouble, top = padding, bottom = padding),
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Column {
@@ -86,42 +89,13 @@ private fun TopBar(model: YelloAppModel) {
                             text = "Land"
                         )
                     }
-                    Column {
-                        Text(
-                            text = battery.format("Battery: %.0f%%"),
-                            fontSize = 18.sp,
-                            fontStyle = FontStyle.Italic,
-                            style = MaterialTheme.typography.h6,
-                            modifier = Modifier.padding(padding),
-                            color = Color.White
-                        )
-                        Text(
-                            text = height.format("Height: %.1fcm"),
-                            fontSize = 18.sp,
-                            fontStyle = FontStyle.Italic,
-                            style = MaterialTheme.typography.h6,
-                            modifier = Modifier.padding(padding),
-                            color = Color.White
-                        )
+                    Column(modifier = Modifier.align(Alignment.CenterVertically)) {
+                        StatusText(battery.format("Battery: %.0f%%"))
+                        StatusText(height.format("Height: %.1fcm"))
                     }
-                    Column {
-                        Text(
-                            text = speed.format("Speed: %.1fm/s"),
-                            fontSize = 18.sp,
-                            fontStyle = FontStyle.Italic,
-                            style = MaterialTheme.typography.h6,
-                            modifier = Modifier.padding(padding),
-                            color = Color.White
-                        )
-                        Text(
-//                        text = wifiStrength.format("Wifi: %.0f%% "),
-                            text = "Time: ${flightTime}s",                    //        (this is the string version)
-                            fontSize = 18.sp,
-                            fontStyle = FontStyle.Italic,
-                            style = MaterialTheme.typography.h6,
-                            modifier = Modifier.padding(padding),
-                            color = Color.White
-                        )
+                    Column(modifier = Modifier.align(Alignment.CenterVertically)) {
+                        StatusText(speed.format("Speed: %.1fm/s"))
+                        StatusText("Time: ${flightTime}s")
                     }
                 }
         }
@@ -132,7 +106,7 @@ private fun TopBar(model: YelloAppModel) {
 private fun Body(model: YelloAppModel) {
     model.apply {
         Box(Modifier.background(Color(0xFF5C5959))) {
-            Box(Modifier.fillMaxSize().padding(start = 6.dp, end = 6.dp, top = 35.dp, bottom = 0.dp)) {
+            Box(Modifier.fillMaxSize().padding(start = padding, end = padding, top = 35.dp, bottom = 0.dp)) {
                 Column(Modifier.align(Alignment.TopCenter).fillMaxHeight(0.5f).fillMaxWidth(0.8f)) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -166,7 +140,7 @@ private fun Body(model: YelloAppModel) {
 @Composable
 private fun BottomBar(model: YelloAppModel) {
     model.apply {
-        Box(Modifier.fillMaxSize().padding(start = 120.dp, end = 120.dp, top = 6.dp, bottom = 6.dp)) {
+        Box(Modifier.fillMaxSize().padding(start = 120.dp, end = 120.dp, top = padding, bottom = padding)) {
             Column(Modifier.align(Alignment.BottomStart).align(Alignment.Center)) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -231,15 +205,32 @@ fun MyIcnBtn(
 ) {
     Button(
         onClick = onClick,
-        modifier = Modifier.padding(padding).width(width).height(height),
+        modifier = Modifier.padding(padSmall).width(width).height(height),
         enabled = enabled,
         colors = ButtonConstants.defaultButtonColors(backgroundColor = backgroundColor, contentColor = contentColor)
     ) {
         if (!iconFirst) Text(text)
-        Icon(vectorResource(iconVectorDrawable), modifier = Modifier.scale(iconScale))
+        Icon(vectorResource(iconVectorDrawable), modifier = Modifier.scale(iconScale).padding(horizontal = padding))
         if (iconFirst) Text(text)
     }
 }
+
+@Composable
+fun StatusText(
+    text : String,
+    fontSize : TextUnit = defaultFontSize,
+    fontStyle : FontStyle = defaultFontStyle,
+) {
+    Text(
+        text = text,
+        fontSize = fontSize,
+        fontStyle = fontStyle,
+        style = MaterialTheme.typography.h6,
+        modifier = Modifier.padding(padSmall),
+        color = Color.White
+    )
+}
+
 
 @Composable
 fun DialogIpAddress(showDialog: Boolean, model: YelloAppModel, setShowDialog: (Boolean) -> Unit) {
@@ -257,7 +248,7 @@ fun DialogIpAddress(showDialog: Boolean, model: YelloAppModel, setShowDialog: (B
                         setShowDialog(false)
                         model.connect(true)
                     },
-                    modifier = Modifier.padding(padding).height(btnHeight),
+                    modifier = Modifier.padding(padSmall).height(btnHeight),
                     colors = ButtonConstants.defaultButtonColors(backgroundColor = btnActiveColor, contentColor = Color.White)
                 ) {
                     Text("Real")
@@ -270,7 +261,7 @@ fun DialogIpAddress(showDialog: Boolean, model: YelloAppModel, setShowDialog: (B
                         setShowDialog(false)
                         model.connect(false)
                     },
-                    modifier = Modifier.padding(padding).height(btnHeight),
+                    modifier = Modifier.padding(padSmall).height(btnHeight),
                     colors = ButtonConstants.defaultButtonColors(backgroundColor = btnActiveColor, contentColor = Color.White)
                 ) {
                     Text("Simulator")

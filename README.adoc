@@ -1,3 +1,5 @@
+:imagesdir: media
+
 == Emoba Assignment 3 - YelloApp
 
 === Bearbeitet (Zweier-Team)
@@ -12,7 +14,11 @@
 
 
 === Zusatz-Merkmale
-* Styling mit adaptiertem MaterialTheme (Typography.kt, Colors.kt, Sizes.kt in ui/theme/..)
+* Styling mit adaptiertem MaterialTheme (Typography.kt, Sizes.kt, Colors in Theme.kt)
+* Design in Figma erstellt:
+** image:whole_UI_v3.png[Figma_Prototype, 500]
+* Umsetzung in der effektiven Android-App:
+** image:YelloApp_final.jpg[Android_App, 500]
 * Aufgeräumte Code-Struktur
 
 

@@ -27,6 +27,7 @@ val padDouble = 12.dp
 val btnWidth = 150.dp
 val flipBtnWidth = 90.dp
 val btnHeight= 35.dp
+val flightControlHeight = 216.dp    // 216 = 756/3.5
 const val iconScale = 1.0f
 val btnActiveColor = Color(0xFF425292)
 val btnSecondColor= Color(0xFFAAA259)
@@ -44,7 +45,6 @@ fun YelloAppUI(model: YelloAppModel) {
         Scaffold(
             topBar      = { TopBar(model) },
             bodyContent = { Body(model) },
-            bottomBar   = { BottomBar(model)}
         )
     }
 }
@@ -55,6 +55,9 @@ private fun TopBar(model: YelloAppModel) {
     // State to manage if the alert dialog is showing or not.
     // Default is false (not showing)
     val (showDialog, setShowDialog) =  remember { mutableStateOf(false) }
+
+    // Create alert dialog, pass the showDialog state to this Composable
+    DialogIpAddress(showDialog, model, setShowDialog)
 
     model.apply {
         Box(Modifier.background(topBarColor)) {
@@ -69,8 +72,6 @@ private fun TopBar(model: YelloAppModel) {
                             iconVectorDrawable = if (connected) R.drawable.ic_icon_disconnect else R.drawable.ic_icon_connect,
                             text = if (connected) "Disconnect" else "Connect"
                         )
-                        // Create alert dialog, pass the showDialog state to this Composable
-                        DialogIpAddress(showDialog, model, setShowDialog)
                         MyIconButton(
                             onClick = { takeoff() },
                             enabled = available && !isFlying,
@@ -110,14 +111,15 @@ private fun TopBar(model: YelloAppModel) {
 private fun Body(model: YelloAppModel) {
     model.apply {
         Box(Modifier.background(backgroundColor)) {
-            Box(Modifier.fillMaxSize().padding(start = padding, end = padding, top = 35.dp, bottom = 0.dp)) {
-                Column(Modifier.align(Alignment.TopCenter).fillMaxHeight(0.5f).fillMaxWidth(0.8f)) {
+            Box(Modifier.fillMaxSize().padding(horizontal = padDouble, vertical = padding)) {
+//                Column(Modifier.align(Alignment.Center).fillMaxHeight(0.9f).fillMaxWidth(0.9f)) {
+                Column(Modifier.align(Alignment.Center)) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         FlightControlUI(
-                            modifier = Modifier.size(168.dp),
+                            modifier = Modifier.size(flightControlHeight),
                             isLeftControl = true,
                             flightControl = flightControlLeft,
                             onInput = {
@@ -125,8 +127,11 @@ private fun Body(model: YelloAppModel) {
                                 fly()
                             }
                         )
+
+                        FlipButtonsUI(model)
+
                         FlightControlUI(
-                            modifier = Modifier.size(168.dp),
+                            modifier = Modifier.size(flightControlHeight),
                             isLeftControl = false,
                             flightControl = flightControlRight,
                             onInput = {
@@ -142,41 +147,40 @@ private fun Body(model: YelloAppModel) {
 }
 
 @Composable
-private fun BottomBar(model: YelloAppModel) {
+private fun FlipButtonsUI(model: YelloAppModel) {
     model.apply {
-        Box(Modifier.fillMaxSize().padding(start = 120.dp, end = 120.dp, top = padding, bottom = padding)) {
-            Column(Modifier.align(Alignment.BottomStart).align(Alignment.Center)) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    FlipButton(
-                        onClick = { flip('f') },
-                        enabled = isFlyingAndAvailable,
-                        iconVectorDrawable = R.drawable.ic_icon_flip_forward
-                    )
-                    FlipButton(
-                        onClick = { flip('b') },
-                        enabled = isFlyingAndAvailable,
-                        iconVectorDrawable = R.drawable.ic_icon_flip_backward
-                    )
-                    FlipButton(
-                        onClick = { flip('l') },
-                        enabled = isFlyingAndAvailable,
-                        iconVectorDrawable = R.drawable.ic_icon_flip_left
-                    )
-                    FlipButton(
-                        onClick = { flip('r') },
-                        enabled = isFlyingAndAvailable,
-                        iconVectorDrawable = R.drawable.ic_icon_flip_right
-                    )
+        Box(Modifier.fillMaxHeight().padding(horizontal = padding, vertical = padding)) {
+            Box(Modifier.align(Alignment.Center)) {
+                Column {
+                    Row {
+                        FlipButton(
+                            onClick = { flip('f') },
+                            enabled = isFlyingAndAvailable,
+                            iconVectorDrawable = R.drawable.ic_icon_flip_forward
+                        )
+                        FlipButton(
+                            onClick = { flip('b') },
+                            enabled = isFlyingAndAvailable,
+                            iconVectorDrawable = R.drawable.ic_icon_flip_backward
+                        )}
+                    Row {
+                        FlipButton(
+                            onClick = { flip('l') },
+                            enabled = isFlyingAndAvailable,
+                            iconVectorDrawable = R.drawable.ic_icon_flip_left
+                        )
+                        FlipButton(
+                            onClick = { flip('r') },
+                            enabled = isFlyingAndAvailable,
+                            iconVectorDrawable = R.drawable.ic_icon_flip_right
+                        )
+                    }
                 }
             }
         }
     }
 }
 
-private fun Float.format(pattern: String): String = String.format(pattern, this)
 
 @Composable
 fun MyIconButton(
@@ -285,3 +289,6 @@ fun DialogIpAddress(showDialog: Boolean, model: YelloAppModel, setShowDialog: (B
         )
     }
 }
+
+private fun Float.format(pattern: String): String = String.format(pattern, this)
+

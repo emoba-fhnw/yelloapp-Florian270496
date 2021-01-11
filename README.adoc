@@ -10,20 +10,34 @@
 
 === Herausstellungsmerkmal unserer App
 
-* Besonders einfache und übersichtliche Bedienung
-
-
-=== Zusatz-Merkmale
-* Styling mit adaptiertem MaterialTheme (Typography.kt, Sizes.kt, Colors in Theme.kt)
-* Design in Figma erstellt:
-** image:whole_UI_v3.png[Figma_Prototype, 500]
-* Umsetzung in der effektiven Android-App:
-** image:YelloApp_final.jpg[Android_App, 500]
-* Aufgeräumte Code-Struktur
+* Besonders einfache und übersichtliche Bedienung mit ansprechendem User-Interface
 
 
 === Projekt-Präsentation und Video vom Flug:
 * https://www.youtube.com/watch?v=058TUrDGcTY
+
+
+=== Design
+Wir haben das Design in Figma erstellt:
+
+image:Whole_UI_v3.png[Figma_Prototype, 500]
+
+Die Umsetzung für die Android-App erfolgte mit den exportierten Grafiken (SVG/XML und PNG) sowie
+mit einem adapatiertem MaterialTheme:
+
+* Schriftdefinitionen in `../ui/theme/Typography.kt`
+* Grössen in `../ui/theme/Sizes.kt`
+* Farben und weiteres in `../ui/theme/Theme.kt`
+
+Unser Resultat (Screenshots aus der Android-App):
+
+image:YelloApp_v3_1.jpg[Figma_Prototype, 500]
+
+image:YelloApp_v3_2.jpg[Figma_Prototype, 500]
+
+image:YelloApp_v3_3.jpg[Figma_Prototype, 500]
+
+image:YelloApp_v3_4.jpg[Figma_Prototype, 500]
 
 
 === Abgabe

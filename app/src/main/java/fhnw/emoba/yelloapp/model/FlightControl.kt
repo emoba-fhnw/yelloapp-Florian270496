@@ -12,13 +12,11 @@ data class FlightControl(val x : Float, val y: Float) {
         var result = offset
         val distance = offset.getDistance()
         if (distance > maxDistance) result /= distance / maxDistance
-
         return result
     }
 
     companion object {
         val Zero = FlightControl(0f, 0f)
-
         fun fromOffset(offset: Offset, maxValue: Float) : FlightControl {
             return FlightControl(offset.x / maxValue, offset.y / maxValue)
         }

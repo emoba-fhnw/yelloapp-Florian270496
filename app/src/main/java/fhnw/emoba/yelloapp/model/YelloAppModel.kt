@@ -54,6 +54,7 @@ class YelloAppModel(private val tello: TelloConnector) {
         }
     }
 
+
     fun disconnect() {
         modelScope.launch {
             tello.disconnect()
@@ -61,6 +62,7 @@ class YelloAppModel(private val tello: TelloConnector) {
             readyForNextCommand = false
         }
     }
+
 
     private fun continuousStatus(){
         modelScope.launch {
@@ -84,7 +86,9 @@ class YelloAppModel(private val tello: TelloConnector) {
         }
     }
 
+
     private var rcJob: Job? = null
+
 
     private fun rc(leftRight: Int, forwardBack: Int, upDown: Int, rotateLeftRight: Int) {
         rcJob?.apply {
@@ -101,6 +105,7 @@ class YelloAppModel(private val tello: TelloConnector) {
         }
     }
 
+
     fun fly() {
         if (connected) {
             modelScope.launch {
@@ -113,6 +118,7 @@ class YelloAppModel(private val tello: TelloConnector) {
             }
         }
     }
+
 
     fun stop() {
         leftRight       = 0
@@ -136,16 +142,18 @@ class YelloAppModel(private val tello: TelloConnector) {
     fun flip(dir: Char) = onTello { flip(dir, defaultOnFinished) }
     fun emergency() = onTello { emergency(defaultOnFinished) }
     fun updateWifiStrength() = onTello { askWifi(updateWifiOnFinished) }
-
     fun realIpAndPorts() = "${tello.realIp}: ${tello.realCommandPort} / ${tello.statusPort}"
     fun simulatorIpAndPorts() = "${tello.simulatorIp}: ${tello.simulatorCommandPort} / ${tello.statusPort}"
 
+
     private val defaultOnFinished: (response: String) -> Unit = { readyForNextCommand = true }
+
 
     private val updateWifiOnFinished: (response: String) -> Unit = {
         wifiStrength = it.toInt()
         readyForNextCommand = true
     }
+
 
     private fun onTello(todo: TelloConnector.() -> Unit) {
         if(connected && readyForNextCommand){

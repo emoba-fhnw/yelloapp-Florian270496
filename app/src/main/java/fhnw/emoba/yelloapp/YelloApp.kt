@@ -14,18 +14,18 @@ object YelloApp : EmobaApp {
 
     override fun initialize(activity: AppCompatActivity, savedInstanceState: Bundle?) {
 
-        /// For simulator:
-//        val connector = TelloConnector(ip          = "192.168.1.6",
-//            commandPort = 8879,
-//            statePort   = 8890)
-
-        /// For the real drone:
-//        val connector = TelloConnector(ip          = "192.168.10.1",
-//            commandPort = 8889,
-//            statePort   = 8890)
+        // ===================================================================== //
+        // IMPORTANT:                                                            //
+        // ----------                                                            //
+        // Please configure your IP-address and ports in:                        //
+        //      src/main/java/fhnw/emoba/yelloapp/data/TelloConnector.kt         //
+        //                                                                       //
+        // There, you can save two configurations for your convenience:          //
+        //      One for your simulator app and one for your real drone           //
+        //      for fast switching                                               //
+        // ===================================================================== //
 
         val connector = TelloConnector()
-
 
         model = YelloAppModel(connector)
     }
@@ -34,6 +34,5 @@ object YelloApp : EmobaApp {
     override fun CreateAppUI() {
         YelloAppUI(model)
     }
-
 }
 

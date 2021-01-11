@@ -13,7 +13,9 @@ import fhnw.emoba.yelloapp.ui.theme.*
 
 @Composable
 fun YelloAppUI(model: YelloAppModel) {
-    MaterialTheme {
+    YelloAppTheme(
+        darkTheme = true,
+    ) {
         Scaffold(
             topBar      = { TopBar(model) },
             bodyContent = { Body(model) },

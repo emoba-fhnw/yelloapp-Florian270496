@@ -27,9 +27,9 @@ fun YelloAppUI(model: YelloAppModel) {
 @Composable
 private fun TopBar(model: YelloAppModel) {
     model.apply {
-        Box(Modifier.background(topBarColor)) {
+        Box(Modifier.background(MaterialTheme.colors.surface)) {
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(start = padDouble, end = padDouble, top = padNormal, bottom = padNormal),
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = padDouble, vertical = padNormal),
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     GeneralButtonsAndPopupDialog(model)
@@ -52,7 +52,7 @@ private fun TopBar(model: YelloAppModel) {
 @Composable
 private fun Body(model: YelloAppModel) {
     model.apply {
-        Box(Modifier.background(myBackgroundColor)) {
+        Box(Modifier.background(MaterialTheme.colors.background)) {
             Box(Modifier.fillMaxSize().padding(horizontal = padDouble, vertical = padNormal)) {
                 Column(Modifier.align(Alignment.Center)) {
                     Row(

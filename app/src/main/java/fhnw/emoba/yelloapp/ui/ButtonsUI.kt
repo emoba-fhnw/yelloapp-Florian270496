@@ -1,10 +1,7 @@
 package fhnw.emoba.yelloapp.ui
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonConstants
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,7 +45,7 @@ fun GeneralButtonsAndPopupDialog(model: YelloAppModel) {
                 onClick = { emergency() },
                 enabled = connected,
                 iconVectorDrawable = R.drawable.ic_icon_emergency,
-                backgroundColor = btnRedColor,
+                backgroundColor = MaterialTheme.colors.error,
                 text = "Emergency"
             )
             MyIconButton(
@@ -101,8 +98,8 @@ fun FlipButtonsUI(model: YelloAppModel) {
 @Composable
 fun MyIconButton(
     onClick : () -> Unit,
-    backgroundColor: Color = btnActiveColor,
-    contentColor: Color = myTextColor,
+    backgroundColor: Color = MaterialTheme.colors.primary,
+    contentColor: Color = MaterialTheme.colors.onBackground,
     enabled : Boolean,
     iconVectorDrawable : Int,
     width: Dp = btnWidth,
@@ -134,7 +131,7 @@ fun FlipButton(
         onClick = onClick,
         enabled = enabled,
         iconVectorDrawable = iconVectorDrawable,
-        backgroundColor = btnSecondColor,
+        backgroundColor = MaterialTheme.colors.secondary,
         iconFirst = false,
         width = flipBtnWidth,
         text = "Flip"

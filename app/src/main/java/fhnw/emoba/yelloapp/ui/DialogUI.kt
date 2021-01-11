@@ -3,10 +3,7 @@ package fhnw.emoba.yelloapp.ui
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonConstants
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import fhnw.emoba.yelloapp.model.YelloAppModel
@@ -30,7 +27,7 @@ fun DialogIpAddress(showDialog: Boolean, model: YelloAppModel, setShowDialog: (B
                         model.connect(true)
                     },
                     modifier = Modifier.padding(padSmall).height(btnHeight),
-                    colors = ButtonConstants.defaultButtonColors(backgroundColor = btnActiveColor, contentColor = myTextColor)
+//                    colors = ButtonConstants.defaultButtonColors(backgroundColor = btnActiveColor, contentColor = myTextColor)
                 ) {
                     Text("Real")
                 }
@@ -43,7 +40,7 @@ fun DialogIpAddress(showDialog: Boolean, model: YelloAppModel, setShowDialog: (B
                         model.connect(false)
                     },
                     modifier = Modifier.padding(padSmall).height(btnHeight),
-                    colors = ButtonConstants.defaultButtonColors(backgroundColor = btnActiveColor, contentColor = myTextColor)
+//                    colors = ButtonConstants.defaultButtonColors(backgroundColor = btnActiveColor, contentColor = myTextColor)
                 ) {
                     Text("Simulator")
                 }
@@ -56,6 +53,7 @@ fun DialogIpAddress(showDialog: Boolean, model: YelloAppModel, setShowDialog: (B
                     Text("   ${model.simulatorIpAndPorts()}")
                 }
             },
+            backgroundColor = MaterialTheme.colors.primaryVariant
         )
     }
 }

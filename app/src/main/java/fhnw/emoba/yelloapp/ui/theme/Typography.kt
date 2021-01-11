@@ -73,8 +73,9 @@ val typography = Typography(
                 fontStyle = FontStyle.Italic
         ),
         h6 = TextStyle(
-                fontSize      = 20.sp,
+                fontSize      = 18.sp,
                 fontWeight    = FontWeight.SemiBold,
+                fontStyle     = FontStyle.Italic,
                 lineHeight    = 24.sp
         ),
         subtitle1 = TextStyle(
@@ -102,10 +103,10 @@ val typography = Typography(
                 letterSpacing = 0.25.sp
         ),
         button = TextStyle(
-                fontSize      = 14.sp,
-//                fontWeight    = FontWeight.SemiBold,
+                fontSize      = 15.sp,
+                fontWeight    = FontWeight.SemiBold,
                 lineHeight    = 16.sp,
-                letterSpacing = 1.25.sp
+                letterSpacing = 1.sp
         ),
         caption = TextStyle(
                 fontSize      = 12.sp,

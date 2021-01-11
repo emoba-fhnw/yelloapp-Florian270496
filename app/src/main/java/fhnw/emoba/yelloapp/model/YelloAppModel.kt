@@ -35,57 +35,14 @@ class YelloAppModel(private val tello: TelloConnector) {
     private var speedZ = 0.0f
     var flightTime by mutableStateOf(0)
 
-    var leftRight by mutableStateOf(0)
-        private set
-
-    var forwardBackward by mutableStateOf(0)
-        private set
-
-    var upwardDownward by mutableStateOf(0)
-        private set
-
-    var rotateLeftRight by mutableStateOf(0)
-        private set
+    private var leftRight by mutableStateOf(0)
+    private var forwardBackward by mutableStateOf(0)
+    private var upwardDownward by mutableStateOf(0)
+    private var rotateLeftRight by mutableStateOf(0)
 
     var flightControlLeft by mutableStateOf(FlightControl.Zero)
     var flightControlRight by mutableStateOf(FlightControl.Zero)
 
-//
-//    fun updateForwardBackward(value: Int) {
-//        if (value == forwardBackward || !connected) {
-//            return
-//        }
-//        forwardBackward = value
-//        rc(leftRight, forwardBackward, upwardDownward, rotateLeftRight)
-//    }
-//
-//
-//    fun updateLeftRight(value: Int) {
-//        if (value == leftRight  || !connected) {
-//            return
-//        }
-//        leftRight = value
-//        rc(leftRight, forwardBackward, upwardDownward, rotateLeftRight)
-//    }
-//
-//
-//    fun updateUpwardDownward(value: Int) {
-//        if (value == upwardDownward || !connected) {
-//            return
-//        }
-//        upwardDownward = value
-//        rc(leftRight, forwardBackward, upwardDownward, rotateLeftRight)
-//    }
-//
-//
-//    fun updateRotateLeftRight(value: Int) {
-//        if (value == rotateLeftRight  || !connected) {
-//            return
-//        }
-//        rotateLeftRight = value
-//        rc(leftRight, forwardBackward, upwardDownward, rotateLeftRight)
-//    }
-//
 
     fun connect(real : Boolean) {
         modelScope.launch {
@@ -162,7 +119,7 @@ class YelloAppModel(private val tello: TelloConnector) {
         forwardBackward = 0
         upwardDownward = 0
         rotateLeftRight = 0
-        //rc(0,0,0,0)
+        rc(0,0,0,0)
         rcJob?.apply {
             if(isActive){
                 cancel()
@@ -172,7 +129,6 @@ class YelloAppModel(private val tello: TelloConnector) {
             tello.stop()
         }
     }
-
 
 
     fun takeoff() = onTello { takeoff(defaultOnFinished) }

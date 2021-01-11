@@ -1,6 +1,8 @@
 package fhnw.emoba.yelloapp.ui
 
 
+import android.graphics.drawable.Icon
+import android.graphics.drawable.VectorDrawable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -9,15 +11,23 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import fhnw.emoba.R
 import fhnw.emoba.yelloapp.model.YelloAppModel
 
 val padding = 6.dp
+val btnWidth = 150.dp
+val btnActiveColor = Color(0xFF425292)
+val btnRedColor = Color(0xFFE60000)
+val icnScale = 0.75f
 
 @Composable
 fun YelloAppUI(model: YelloAppModel) {
@@ -46,43 +56,71 @@ private fun TopBar(model: YelloAppModel) {
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Column {
-                        Button(
+                        TopButton(
                             onClick = { if (connected) disconnect() else setShowDialog(true) },
-                            modifier = Modifier.padding(padding).width(120.dp),
-                            colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
-                        ) {
-                            Text(if (connected) "Disconnect" else "Connect")
-                        }
+                            enabled = true,
+                            iconVectorDrawable = if (connected) R.drawable.ic_icon_disconnect else R.drawable.ic_icon_connect,
+                            text = if (connected) "Disconnect" else "Connect"
+                        )
+
+//                        Button(
+//                            onClick = { if (connected) disconnect() else setShowDialog(true) },
+//                            modifier = Modifier.padding(padding).width(btnWidth),
+//                            colors = ButtonConstants.defaultButtonColors(backgroundColor = btnActiveColor, contentColor = Color.White)
+//                        ) {
+//                            Icon(vectorResource(R.drawable.ic_icon_connect), modifier = Modifier.scale(icnScale))
+//                            Text(if (connected) "Disconnect" else "Connect")
+//                        }
                         // Create alert dialog, pass the showDialog state to this Composable
                         DialogIpAddress(showDialog, model, setShowDialog)
-                        Button(
+                        TopButton(
                             onClick = { takeoff() },
                             enabled = available,
-                            modifier = Modifier.padding(padding).width(120.dp),
-                            colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
-
-                        ) {
-                            Text("Takeoff")
-                        }
+                            iconVectorDrawable = R.drawable.ic_icon_takeoff,
+                            text = "Takeoff"
+                        )
+//                        Button(
+//                            onClick = { takeoff() },
+//                            enabled = available,
+//                            modifier = Modifier.padding(padding).width(btnWidth),
+//                            colors = ButtonConstants.defaultButtonColors(backgroundColor = btnActiveColor, contentColor = Color.White)
+//
+//                        ) {
+//                            Icon(vectorResource(R.drawable.ic_icon_takeoff), modifier = Modifier.scale(icnScale))
+//                            Text("Takeoff")
+//                        }
                     }
                     Column {
-                        Button(
+                        TopButton(
                             onClick = { emergency() },
                             enabled = connected,
-                            modifier = Modifier.padding(padding).width(120.dp),
-                            colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFFE60000), contentColor = Color.White)
-                        ) {
-                            Text("Emergency")
-                        }
-                        Button(
+                            iconVectorDrawable = R.drawable.ic_icon_emergency,
+                            backgroundColor = btnRedColor,
+                            text = "Emergency"
+                        )
+//                        Button(
+//                            onClick = { emergency() },
+//                            enabled = connected,
+//                            modifier = Modifier.padding(padding).width(btnWidth),
+//                            colors = ButtonConstants.defaultButtonColors(backgroundColor = btnRedColor, contentColor = Color.White)
+//                        ) {
+//                            Text("Emergency")
+//                        }
+                        TopButton(
                             onClick = { land() },
                             enabled = available,
-                            modifier = Modifier.padding(padding).width(120.dp),
-                            colors = ButtonConstants.defaultButtonColors(backgroundColor = Color(0xFF425292), contentColor = Color.White)
-
-                        ) {
-                            Text("Land")
-                        }
+                            iconVectorDrawable = R.drawable.ic_icon_land,
+                            text = "Land"
+                        )
+//                        Button(
+//                            onClick = { land() },
+//                            enabled = available,
+//                            modifier = Modifier.padding(padding).width(btnWidth),
+//                            colors = ButtonConstants.defaultButtonColors(backgroundColor = btnActiveColor, contentColor = Color.White)
+//
+//                        ) {
+//                            Text("Land")
+//                        }
                     }
                     Column {
                         Text(
@@ -214,6 +252,25 @@ private fun BottomBar(model: YelloAppModel) {
 
 private fun Float.format(pattern: String): String = String.format(pattern, this)
 
+@Composable
+fun TopButton(
+    onClick : () -> Unit,
+    backgroundColor: Color = Color(0xFF425292),
+    contentColor: Color = Color.White,
+    enabled : Boolean,
+    iconVectorDrawable : Int,
+    text : String
+) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier.padding(padding).width(150.dp),
+        enabled = enabled,
+        colors = ButtonConstants.defaultButtonColors(backgroundColor = backgroundColor, contentColor = contentColor)
+    ) {
+        Icon(vectorResource(iconVectorDrawable), modifier = Modifier.scale(0.75f))
+        Text(text)
+    }
+}
 
 @Composable
 fun DialogIpAddress(showDialog: Boolean, model: YelloAppModel, setShowDialog: (Boolean) -> Unit) {

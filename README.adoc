@@ -1,13 +1,23 @@
 == Emoba Assignment 3 - YelloApp
 
-=== Bearbeitet von
+=== Bearbeitet (Zweier-Team)
 
-* Florian Daasch und Andreas Ambühl
+* Florian Daasch: https://github.com/Florian270496
+* Andreas Ambühl: https://github.com/AndiSwiss
 
 
-=== Herausstellungsmerkmal meiner App
+=== Herausstellungsmerkmal unserer App
 
 * Besonders einfache und übersichtliche Bedienung
+
+
+=== Zusatz-Merkmale
+* Styling mit adaptiertem MaterialTheme (Typography.kt, Colors.kt, Sizes.kt in ui/theme/..)
+* Aufgeräumte Code-Struktur
+
+
+=== Projekt-Präsentation und Video vom Flug:
+* https://www.youtube.com/watch?v=058TUrDGcTY
 
 
 === Abgabe
